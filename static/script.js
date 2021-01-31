@@ -35,3 +35,9 @@ $("#login-form").submit(function() {
   });
   return false;
 });
+
+$("#about").text(
+  $("#about").text().replace(/(https?:\/\/[^\s]+)/g, function (url) {
+    return '<a href="' + url + '">' + url + '</a>';
+  })
+);

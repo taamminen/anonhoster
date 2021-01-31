@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 24, 2021 at 06:36 AM
+-- Generation Time: Jan 31, 2021 at 10:32 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -31,26 +31,10 @@ CREATE TABLE `files` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL DEFAULT 0,
   `filename` varchar(16) NOT NULL,
-  `description` text NOT NULL,
+  `about` text NOT NULL,
   `password` varchar(60) DEFAULT NULL,
   `created_at` date NOT NULL DEFAULT current_timestamp(),
   `downloads` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(16) NOT NULL,
-  `password` varchar(60) NOT NULL,
-  `name` varchar(64) DEFAULT NULL,
-  `avatar` varchar(10) DEFAULT NULL,
-  `created_at` date NOT NULL DEFAULT current_timestamp(),
-  `is_public` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -64,12 +48,6 @@ ALTER TABLE `files`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -78,12 +56,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `files`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
