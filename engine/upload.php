@@ -2,6 +2,23 @@
 
 include "database.php";
 
+function checkfilename($filename, $conn) {
+	$sql = "SELECT id FROM `files` WHERE filename = ?";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute(array($filename));
+	$row = $stmt->fetchAll(PDO::FETCH_OBJ);
+	if (count($row) > 0)
+		return false;
+	else return true;
+}
+
+function randomstring($length=9) {
+	$string = ""; $chars = "qwertyuiopasdfghjklzxcvbnm";
+	for ($i = 0; $i < $length; $i++)
+		$string .= $chars[random_int(0, strlen($chars)-1)];
+	return $string;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
 	if ($loggedin) {
@@ -15,10 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 		$password = ""; $userid = 0;
 	}
 
-	$filename = ""; $chars = "qwertyuiopasdfghjklzxcvbnm";
-	for ($i = 0; $i < 9; $i++)
-		$filename .= $chars[random_int(0, strlen($chars)-1)];
-	$filename = "$filename." . pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+	$ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+	$filename = randomstring() . ".$ext";
+	while (!checkfilename($filename, $conn)) $filename = randomstring() . ".$ext";
 
 	if (empty($message))
 	{
@@ -48,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 </head>
 <body>
     <main>
-			<h1>Upload a file</h1>
+			<h1>Upload a file <a href="/">(home)</a></h1>
 			<?php if ($message != ""): ?>
 				<p><?= $message ?></p>
 			<?php endif; ?>

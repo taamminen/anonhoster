@@ -18,9 +18,10 @@
 			</p>
 			<p>To delete your file, go to url of your file and replace
 				`/file/` in url to `/delete/`. Don't forget your password,
-				it's unrevocerable.</p>
+				it's unrevocerable. Also, <a href="/browse">browse</a> your own files.</p>
 			<p>Join us on Gitlab: <a href="https://gitlab.com/taamminen/anonhoster">
 					gitlab.com/taamminen/anonhoster</a>.</p>
+			<p>Maximum file size right now is 20MB.</p>
 			<!--<p>Also, you can upload your file via linux terminal:<br />
 			$ curl -F "file=@'UPLOAD_PATH'" https://taamminen.ru/upload</p>-->
     </main>

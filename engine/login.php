@@ -2,7 +2,7 @@
 
 include "database.php";
 
-if ($loggedin) header("Location: /");
+if ($loggedin && $_SERVER["REQUEST_METHOD"] == "GET") header("Location: /");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -34,7 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 </head>
 <body>
     <main>
-			<h1>Log in</h1>
+			<h1>Log in <a href="/">(home)</a></h1>
+			<p>If you don't have an account, you can <a href="/register">register</a>.</p>
 	    <form id="login-form" action="/login" method="POST">
 		    <input type="text" placeholder="Enter your username" name="username" /><br />
 		    <input type="password" placeholder="and password" name="password" /><br />
