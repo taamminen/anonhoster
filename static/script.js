@@ -11,9 +11,11 @@ $("#register-form").submit(function() {
       console.log(data);
       if (data["message"] == "") {
         alert("Registration was successful. Now you can log in.");
-
-      } else alert(data["message"]);
-    }
+        window.location.href = "/login";
+      } else {
+        alert(data["message"])
+      };
+    }, error: function(data) {console.log(data);}
   });
   return false;
 });
@@ -30,8 +32,9 @@ $("#login-form").submit(function() {
       console.log(data);
       if (data["message"] == "") {
         alert("You are successfully logged in.");
+        window.location.href = "/files";
       } else alert(data["message"]);
-    }
+    }, error: function(data) {console.log(data);}
   });
   return false;
 });

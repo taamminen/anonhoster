@@ -1,12 +1,8 @@
 <?php
 
-session_start();
+include "database.php";
 
-require "database.php";
-
-if (isset($_SESSION["user_id"])) header("Location: /");
-
-$message = "";
+if ($loggedin) header("Location: /");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -15,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
 	header('Content-type: application/json');
 
-	$sql = "SELECT password FROM `users` WHERE username = ?";
+	$sql = "SELECT id, password FROM `users` WHERE username = ?";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute(array($usnm));
 	$row = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -25,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
   else $message = "Wrong data.";
 
   echo json_encode(["message" => $message]);
+	exit;
 }
 
 ?>
@@ -32,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Register</title>
+	<title>Log in</title>
   <link rel="stylesheet" type="text/css" href="/static/style.css" />
 </head>
 <body>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 31, 2021 at 10:32 PM
+-- Generation Time: Feb 03, 2021 at 06:44 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -24,17 +24,14 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `files`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `files` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL DEFAULT 0,
-  `filename` varchar(16) NOT NULL,
-  `about` text NOT NULL,
-  `password` varchar(60) DEFAULT NULL,
-  `created_at` date NOT NULL DEFAULT current_timestamp(),
-  `downloads` int(11) NOT NULL DEFAULT 0
+  `username` varchar(16) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `created_at` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -42,9 +39,9 @@ CREATE TABLE `files` (
 --
 
 --
--- Indexes for table `files`
+-- Indexes for table `users`
 --
-ALTER TABLE `files`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -52,10 +49,10 @@ ALTER TABLE `files`
 --
 
 --
--- AUTO_INCREMENT for table `files`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

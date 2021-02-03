@@ -1,12 +1,8 @@
 <?php
 
-session_start();
+include "database.php";
 
-require "database.php";
-
-if (isset($_SESSION["user_id"])) header("Location: /");
-
-$message = "";
+if ($loggedin) header("Location: /");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -39,8 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	$stmt = $conn->prepare($sql);
 	try {
 		$stmt->execute([$usnm, password_hash($pswd, PASSWORD_BCRYPT)]);
-	} catch (Exception $e) {$message = "Some error occured.";}
+	} catch (Exception $e) {
+		$message = "Some error occured.";
+	}
 	echo json_encode(["message" => $message]);
+	exit;
 }
 
 ?>
