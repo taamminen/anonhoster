@@ -11,7 +11,7 @@ if (empty($file)) header("Location: /");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
-  if (($loggedin != 0) && $loggedin == $file->user_id) ||
+  if ((Funcs::checkLoginState($conn) && $_SESSION["user_id"] == $file->user_id) ||
     (!empty($file->password) && password_verify($_POST["pswd"], $file->password)))
   {
     $sql = "DELETE FROM `files` WHERE filename = ?";
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         <p><?= $message ?></p>
       <?php endif; ?>
       <form method="POST" action="/delete/<?= $f ?>">
-        <?php if ($loggedin != 0) && $loggedin == $file->user_id): ?>
+        <?php if (Funcs::checkLoginState($conn) && $_SESSION["user_id"] == $file->user_id): ?>
           <input type="Submit" value="Yes, delete!" />
         <?php elseif (!empty($file->password)): ?>
           <input type="password" name="pswd" placeholder="password" /><br />

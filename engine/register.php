@@ -2,7 +2,7 @@
 
 include "database.php";
 
-if ($loggedin && $_SERVER["REQUEST_METHOD"] == "GET") header("Location: /");
+if (Funcs::checkLoginState($conn)) header("Location: /");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {

@@ -2,7 +2,7 @@
 
 include "database.php";
 
-if ($loggedin && $_SERVER["REQUEST_METHOD"] == "GET") header("Location: /");
+if (Funcs::checkLoginState($conn)) header("Location: /");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -11,13 +11,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
 	header('Content-type: application/json');
 
-	$sql = "SELECT id, password FROM `users` WHERE username = ?";
+	$sql = "SELECT id, username, password FROM `users` WHERE username = ?";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute(array($usnm));
 	$row = $stmt->fetchAll(PDO::FETCH_OBJ);
 
   if (count($row) > 0 && password_verify($pswd, $row[0]->password))
-    $_SESSION['user_id'] = $row[0]->id;
+		Funcs::createAccount($conn, $row[0]->id, $row[0]->username);
   else $message = "Wrong data.";
 
   echo json_encode(["message" => $message]);

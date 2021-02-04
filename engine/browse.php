@@ -2,11 +2,11 @@
 
 require 'database.php';
 
-if (!$loggedin) header("Location: /");
+if (!Funcs::checkLoginState($conn)) header("Location: /");
 
 $sql = "SELECT filename FROM `files` WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->execute(array($loggedin));
+$stmt->execute(array($_SESSION["user_id"]));
 $files = $stmt->fetchAll(PDO::FETCH_OBJ);
 
 ?>
