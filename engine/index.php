@@ -5,6 +5,12 @@
 <head>
 	<title>Anonhost by @taamminen</title>
   <link rel="stylesheet" type="text/css" href="/static/style.css" />
+	<meta name="author" content="@taamminen" />
+	<meta name="description" content="Welcome to the club, buddy." />
+	<meta property="og:url" content="taamminen.ru" />
+	<meta property="og:title" content="Anonhost by @taamminen" />
+	<meta property="og:description" content="Welcome to the club, buddy." />
+	<meta property="og:image" content="/static/gosling.jpg" />
 </head>
 <body>
     <main>
