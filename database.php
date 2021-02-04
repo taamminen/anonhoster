@@ -16,12 +16,13 @@ try {
   die("Connection failed: " . $e->getMessage());
 }
 
-$message = "";
-
 class Funcs {
 
     public static function runSession() {
         if (!isset($_SESSION)) session_start();
+        if (empty($_SESSION['key']))
+          $_SESSION['key'] = bin2hex(random_bytes(32));
+
     }
 
     public static function checkLoginState($conn) {
@@ -94,17 +95,26 @@ class Funcs {
         $_SESSION['user_id'] = $user_id;
         $_SESSION['token'] = $token;
         $_SESSION['serial'] = $serial;
-
     }
 
-    function generateToken($length=9) {
+    public static function createCSRF() {
+      Funcs::runSession();
+      return hash_hmac('sha256', 'chemical power of space', $_SESSION['key']);
+    }
+
+    public static function checkCSRF($csrf, $csrf2) {
+      if (hash_equals($csrf, $csrf2)) return true;
+      return false;
+    }
+
+    public static function generateToken($length=9) {
       $string = ""; $chars = "qwertyuiopasdfghjklzxcvbnm";
     	for ($i = 0; $i < $length; $i++)
     		$string .= $chars[random_int(0, strlen($chars)-1)];
     	return $string;
     }
 
-    function checkFilename($conn, $filename) {
+    public static function checkFilename($conn, $filename) {
     	$sql = "SELECT id FROM `files` WHERE filename = ?";
     	$stmt = $conn->prepare($sql);
     	$stmt->execute(array($filename));
@@ -114,5 +124,7 @@ class Funcs {
     }
 }
 
+$csrf = Funcs::createCSRF();
+$message = "";
 
 ?>

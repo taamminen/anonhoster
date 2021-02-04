@@ -11,6 +11,13 @@ if (empty($file)) header("Location: /");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
+  
+  if (!Funcs::checkCSRF($csrf, $_POST['csrf'])) {
+    $message = "CSRF check failed.";
+    echo json_encode(["message" => $message]);
+    exit;
+  }
+
   if ((Funcs::checkLoginState($conn) && $_SESSION["user_id"] == $file->user_id) ||
     (!empty($file->password) && password_verify($_POST["pswd"], $file->password)))
   {
@@ -45,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
           <p>Sorry, this file doesn't have a password and you are not authorized
             as an uploader of file, it can't be deleted.</p>
         <?php endif; ?>
+        <input type="hidden" name="csrf" value="<?= $csrf ?>" />
       </form>
     </main>
     <script src="/static/jquery-3.5.1.min.js"></script>

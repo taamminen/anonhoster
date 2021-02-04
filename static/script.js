@@ -6,7 +6,8 @@ $("#register-form").submit(function() {
     data: {
       username: $("[name=username]").val(),
       password: $("[name=password]").val(),
-      confirm_password: $("[name=confirm_password]").val()
+      confirm_password: $("[name=confirm_password]").val(),
+      csrf: $("[name=csrf]").val()
     }, success: function(data) {
       console.log(data);
       if (data["message"] == "") {
@@ -27,7 +28,8 @@ $("#login-form").submit(function() {
     dataType: "json",
     data: {
       username: $("[name=username]").val(),
-      password: $("[name=password]").val()
+      password: $("[name=password]").val(),
+      csrf: $("[name=csrf]").val()
     }, success: function(data) {
       console.log(data);
       if (data["message"] == "") {

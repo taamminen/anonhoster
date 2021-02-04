@@ -12,6 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
 	header('Content-type: application/json');
 
+	if (!Funcs::checkCSRF($csrf, $_POST['csrf'])) {
+		$message = "CSRF check failed.";
+		echo json_encode(["message" => $message]);
+		exit;
+	}
 	if ($pswd != $cpswd)
 		$message .= "\nPasswords don't match.";
 	if (strlen($pswd) > 16 || strlen($pswd) < 8)
@@ -58,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 		    <input type="text" placeholder="Enter your username" name="username" /><br />
 		    <input type="password" placeholder="and password" name="password" /><br />
 		    <input type="password" placeholder="confirm password" name="confirm_password" /><br />
+				<input type="hidden" name="csrf" value="<?= $csrf ?>" />
 		    <input type="submit" value="Submit" />
 	    </form>
     </main>

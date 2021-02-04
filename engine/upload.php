@@ -15,6 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 		$password = ""; $userid = 0;
 	}
 
+	if (!Funcs::checkCSRF($csrf, $_POST['csrf'])) {
+		$message = "CSRF check failed.";
+		echo json_encode(["message" => $message]);
+		exit;
+	}
+
 	if (empty($message)) {
 		if (isset($_FILES['file'])) {
 			$ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
@@ -57,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 					<input type="password" placeholder="password for delete (not required)" name="pswd" /><br />
 					<input type="password" placeholder="confirm password" name="pswd2" /><br />
 				<?php endif; ?>
+				<input type="hidden" name="csrf" value="<?= $csrf ?>" />
 				<input type="submit" value="Submit" />
 	    </form>
     </main>

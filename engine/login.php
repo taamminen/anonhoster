@@ -11,6 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
 	header('Content-type: application/json');
 
+	if (!Funcs::checkCSRF($csrf, $_POST['csrf'])) {
+		$message = "CSRF check failed.";
+		echo json_encode(["message" => $message]);
+		exit;
+	}
+
 	$sql = "SELECT id, username, password FROM `users` WHERE username = ?";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute(array($usnm));
@@ -39,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	    <form id="login-form" action="/login" method="POST">
 		    <input type="text" placeholder="Enter your username" name="username" /><br />
 		    <input type="password" placeholder="and password" name="password" /><br />
+				<input type="hidden" name="csrf" value="<?= $csrf ?>" />
 		    <input type="submit" value="Submit" />
 	    </form>
     </main>
