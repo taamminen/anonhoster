@@ -16,10 +16,10 @@ class Website
       header("Content-Length: " . filesize("/static/$fname"));
       readfile("/static/$fname");
     });
-    $this->route("^/(\w+)$", function($url) {header("Location: /");});
     foreach ($this->routes as $pattern => $callback)
       if (preg_match($pattern, $_SERVER["REQUEST_URI"], $params) === 1)
         return call_user_func_array($callback, array_values($params));
+    header("Location: /");
   }
 }
 
