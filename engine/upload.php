@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 				try {
 					$stmt->execute([$userid, $filename, $password]);
 					$message = "Link to your file is
-						<a href=\"/file/$filename\">taamminen.ru/file/$filename</a>.";
+						<a href=\"/file/$filename\">" . $_SERVER['SERVER_NAME'] . "/file/$filename</a>.";
 				} catch (Exception $e) {
 					$message = $e->getMessage();
 				}
