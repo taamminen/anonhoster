@@ -15,6 +15,7 @@ $files = $stmt->fetchAll(PDO::FETCH_OBJ);
 <html>
 <head>
 	<title>All your files</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" type="text/css" href="/static/style.css" />
 </head>
 <body>

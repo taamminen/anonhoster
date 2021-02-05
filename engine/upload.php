@@ -50,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 <head>
 	<title>Upload</title>
   <link rel="stylesheet" type="text/css" href="/static/style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
     <main>

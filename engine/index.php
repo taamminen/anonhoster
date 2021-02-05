@@ -4,6 +4,7 @@
 <html>
 <head>
 	<title>Anonhost by @taamminen</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" type="text/css" href="/static/style.css" />
 	<meta name="author" content="@taamminen" />
 	<meta name="description" content="Welcome to the club, buddy." />

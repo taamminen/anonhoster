@@ -11,7 +11,7 @@ if (empty($file)) header("Location: /");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
-  
+
   if (!Funcs::checkCSRF($csrf, $_POST['csrf'])) {
     $message = "CSRF check failed.";
     echo json_encode(["message" => $message]);
@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 <html>
 <head>
 	<title>Anonhost by @taamminen</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" type="text/css" href="/static/style.css" />
 </head>
 <body>
